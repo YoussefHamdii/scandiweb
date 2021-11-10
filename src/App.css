@@ -4,6 +4,10 @@
   box-sizing: 0;
 }
 
+ul{
+  list-style-type: none;
+}
+
 .center{
   margin: 0;
   position: absolute;
@@ -15,6 +19,10 @@
 .container{
   margin-top: 5%;
   margin-bottom: 10%;
+}
+.link, .link:hover{
+  text-decoration: none;
+  color: black;
 }
 
 /* navigation bar styling */
@@ -72,6 +80,10 @@ h1{
 
 /* Card component */
 .card__content__container{
+  background-color: white;
+  border: 0;
+  text-decoration: none;
+  text-align: left;
   flex-basis: 30%;
   margin-top: 100px;
 }
@@ -81,3 +93,67 @@ h1{
 .card__content__container .price__txt{
   font-weight:500;
 }
+
+/* Product Listing Page */
+
+.product__page{
+  margin-top: 5%;
+  display: flex;
+}
+
+.images__showcase{
+  display: flex;
+  margin-left: 10%;
+}
+
+.images__showcase1 img{
+  width:  100px;
+  height: 100x;
+  object-fit: cover;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.images__showcase2 img{
+  width:  600px;
+  height: 500px;
+  object-fit: cover;
+  margin-left: 50px;
+}
+
+.product__details{
+  width: 25%;
+}
+
+.product__details p{
+  width: 75%;
+  justify-content: left;
+}
+
+.sizing{
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.sizing li{
+  margin-right: 20px;
+  border: 1px solid black;
+  padding: 10px;
+  width: 50px;
+  text-align: center;
+}
+
+.addtocart__button{
+  display: block;
+  width: 70%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #5ECE7B;
+  color: white;
+  border: none;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+

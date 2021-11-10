@@ -45,11 +45,12 @@ class Category extends React.Component {
   render(){
   return (
       <ApolloProvider client={client}>
+      
     <div className="container">
         <h1>{this.state.products.name}</h1>
 
         <div className="card__container">
-            {this.state.products.products? this.state.products.products.map((elem, index) => <Card item ={elem} key={index} className="card"/>): null}
+            {this.state.products.products? this.state.products.products.map((elem, index) => <Card item ={elem} key={index} className="card" />): null}
         </div>
     </div>
     </ApolloProvider>
