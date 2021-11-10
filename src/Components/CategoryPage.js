@@ -1,6 +1,8 @@
 import React from 'react';
 import {ApolloClient, ApolloProvider, gql, InMemoryCache} from '@apollo/client';
 import Card from './CardComponent';
+import { connect } from 'react-redux';
+import { addProducts } from '../redux/shopping/shoppingActions';
 
 const client = new ApolloClient({
     uri:'http://localhost:4000/',
@@ -8,23 +10,23 @@ const client = new ApolloClient({
 });
 
 const testQuery = gql`
-query Query {
-    categories{
-        name
-        products{
-          id
+  query Query {
+      categories{
           name
-          inStock
-          gallery
-          description
-          category
-          prices{
-            currency
-            amount
+          products{
+            id
+            name
+            inStock
+            gallery
+            description
+            category
+            prices{
+              currency
+              amount
+            }
+            brand
           }
-          brand
         }
-      }
   }
 `;
 
@@ -38,7 +40,7 @@ class Category extends React.Component {
     componentWillMount() {
         client.query({
             query: testQuery
-        }).then(res => this.setState({products: res.data.categories[1]})).catch(e => console.log(e));
+        }).then(res => {this.setState({products: res.data.categories[1]}); this.props.addProducts(this.state.products.products)}).catch(e => console.log(e));
       }
       
 
@@ -57,4 +59,10 @@ class Category extends React.Component {
   );}
 }
 
-export default Category;
+const mapDispatchToProps = dispatch => {
+  return{
+    addProducts: (products) => dispatch(addProducts(products))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Category);

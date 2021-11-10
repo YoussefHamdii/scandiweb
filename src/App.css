@@ -104,21 +104,22 @@ h1{
 .images__showcase{
   display: flex;
   margin-left: 10%;
+  margin-right: 7.5%;
 }
 
 .images__showcase1 img{
-  width:  100px;
-  height: 100x;
+  width:  75px;
+  height: 75px;
   object-fit: cover;
   display: block;
   margin-bottom: 20px;
 }
 
 .images__showcase2 img{
-  width:  600px;
+  width:  500px;
   height: 500px;
   object-fit: cover;
-  margin-left: 50px;
+  margin-left: 25px;
 }
 
 .product__details{
@@ -128,6 +129,10 @@ h1{
 .product__details p{
   width: 75%;
   justify-content: left;
+}
+.desc{
+  height: 200px;
+  overflow: hidden;
 }
 
 .sizing{

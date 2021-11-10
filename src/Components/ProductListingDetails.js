@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { addToCart } from '../redux/shopping/shoppingActions';
 
 class ProductListingDetails extends React.Component {
 
@@ -10,8 +12,8 @@ class ProductListingDetails extends React.Component {
   render(){
   return (
     <div className="product__details">
-        <h2>XBOX SERIES 1</h2>
-        <p>Fine technology</p>
+        <h2>{this.props.item.name}</h2>
+        <p>{this.props.item.brand}</p>
         <div>
             <p>SIZE:</p>
             <ul className="sizing">
@@ -23,12 +25,18 @@ class ProductListingDetails extends React.Component {
         </div>
         <h6>Price:</h6>
         400 $
-        <button className="addtocart__button">
+        <button className="addtocart__button" onClick={() => this.props.addToCart(this.props.item.id)}>
             ADD TO CART
         </button>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p className="desc">{this.props.item.description}</p>
     </div>
   );}
 }
 
-export default ProductListingDetails;
+const mapDispatchToProps = dispatch => {
+    return {
+        addToCart: (id) => dispatch(addToCart(id))
+    }
+};
+
+export default connect(null, mapDispatchToProps)(ProductListingDetails);
