@@ -1,5 +1,6 @@
 import React from 'react';
 import {Dropdown} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 
 class Navigation extends React.Component {
   render(){
@@ -20,9 +21,9 @@ class Navigation extends React.Component {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">USD</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">EUR</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">EGP</Dropdown.Item>
+                    <Dropdown.Item href="#/action-1">$ USD</Dropdown.Item>
+                    <Dropdown.Item href="#/action-2">€ EUR</Dropdown.Item>
+                    <Dropdown.Item href="#/action-3">¥ JPY</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
             
@@ -32,7 +33,7 @@ class Navigation extends React.Component {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">USD</Dropdown.Item>
+                    <Dropdown.Item href="#/action-1"><Link to="/cart">USD</Link></Dropdown.Item>
                     <Dropdown.Item href="#/action-2">EUR</Dropdown.Item>
                     <Dropdown.Item href="#/action-3">EGP</Dropdown.Item>
                 </Dropdown.Menu>

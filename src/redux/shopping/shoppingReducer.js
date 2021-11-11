@@ -12,7 +12,8 @@ const shopReducer = (state = INITIAL_STATE, {type, payload}) =>{
             const inCart = state.cart.find((item)=> item.id === payload.id? true:false);
             return{...state, cart: inCart? state.cart.map((item) => item.id === payload.id? {...item, qty:item.qty+1}:item) : [...state.cart, {...payload, qty:1}]};
         case actionTypes.ADJUST_QTY:
-            return{...state, cart: state.cart.map((item) => item.id === payload.id? {...item, qty:payload.qty}:item) };
+            if (payload.qty === 0) return {...state, cart: state.cart.filter((elem) => elem.id !== payload.id)};
+            else return{...state, cart: state.cart.map((item) => item.id === payload.id? {...item, qty:payload.qty}:item) };
         case actionTypes.ADD_PRODUCTS:
             return {...state, products: payload}
         default:
