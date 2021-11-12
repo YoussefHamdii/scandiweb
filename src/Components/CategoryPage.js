@@ -48,7 +48,6 @@ class Category extends React.Component {
   render(){
   return (
       <ApolloProvider client={client}>
-      {console.log(this.state.products)}
     <div className="container">
         <h1>{this.state.products.name}</h1>
 

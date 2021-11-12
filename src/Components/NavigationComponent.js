@@ -3,12 +3,13 @@ import {Dropdown} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { changeCurrency } from '../redux/shopping/shoppingActions';
+import CartOverlay from './CartOverlay';
 
 class Navigation extends React.Component {
     
     constructor(props) {
         super(props);
-        this.state ={selected: 0};
+        this.state ={selected: 0, toggleCart: false};
       }
 
   render(){
@@ -20,7 +21,7 @@ class Navigation extends React.Component {
             <button className="qty__buttons" onClick={()=> this.setState({selected: 2})}><li className={this.state.selected === 2 ?"list__item nav__item__selected":"list__item"}>KIDS</li></button>
         </ul>
 
-        <img src="/logo.svg" alt="Logo" />
+        <Link to="/"><img className="logo" src="/logo.svg" alt="Logo" /></Link>
 
         <div className="drop__container">
             <Dropdown>
@@ -38,15 +39,14 @@ class Navigation extends React.Component {
             </Dropdown>
             
             <Dropdown>
-                <Dropdown.Toggle className="dropdown" variant="info">
-                    <img src="/Cart.svg" alt="Cart" />
-                </Dropdown.Toggle>
 
-                <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1"><Link to="/cart">USD</Link></Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">EUR</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">EGP</Dropdown.Item>
-                </Dropdown.Menu>
+                <button className="qty__buttons" onClick={() => this.setState({toggleCart: !this.state.toggleCart})}>    
+                    <img className="cart__logo" src="/Cart.svg" alt="Cart" />
+                </button>
+
+                {this.state.toggleCart ? <div className="minicart">
+                    <CartOverlay />
+                </div>: null}
             </Dropdown>
         </div>
     </div>

@@ -25,6 +25,10 @@ ul{
   color: black;
 }
 
+.logo {
+  margin-top: 100%;
+}
+
 /* navigation bar styling */
 .nav__container{
   display: flex;
@@ -244,4 +248,82 @@ h1{
 .qty__buttons {
   background-color: white;
   border: 0;
+}
+
+/* mini cart */
+
+.minicart{
+  position: absolute;
+  right: 50%;
+  background-color: white;
+}
+
+.cart__logo{
+  padding-top: 10px;
+}
+
+.sizing__overlay{
+  display: flex;
+}
+
+.sizing__overlay li{
+  margin-right: 20px;
+  border: 1px solid black;
+  padding: 1px;
+  width: 25px;
+  text-align: center;
+}
+
+.qty__overlay li{
+  border: 1px solid black;
+  padding: 1px;
+  width: 25px;
+  text-align: center;
+}
+
+.qty__overlay .number{
+  border: 0;
+}
+
+.cart__item__container__overlay {
+  display: flex;
+  justify-content: space-evenly;
+  border-top: 1px solid rgb(189, 187, 187);
+  padding: 10px;
+}
+
+.cart__item__container__overlay img {
+  width: 75px;
+  height: 125px;
+  object-fit: cover;
+  margin-left: 25px;
+}
+
+.cart__page{
+  padding: 10px;
+}
+
+.minicart__buttons{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.cart__button{
+  width: 125px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  margin: 15px;
+  font-size: 0.9em;
+  background-color: white;
+}
+
+.checkout{
+  width: 125px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  margin: 15px;
+  font-size: 0.9em;
+  background-color: #5ECE7B;
+  border: 0;
+  color: white;
 }
