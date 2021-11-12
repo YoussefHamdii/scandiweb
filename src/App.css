@@ -75,6 +75,7 @@ h1{
 
 .card__img__container{
   display: flex;
+  display: relative;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -85,11 +86,18 @@ h1{
   height: 300px;
   object-fit: cover;
   padding-top: 20px;
-  
 }
 
 .link p{
   margin-left: 10%;
+}
+
+.overlay {
+  opacity: 0.35;
+}
+.text__overlay{
+  font-size: 2em;
+  position: absolute;
 }
 
 /* Card component */
@@ -135,6 +143,10 @@ h1{
   margin-bottom: 20px;
 }
 
+.outofstock__text{
+  color: red;
+}
+
 .images__showcase2 img{
   width:  500px;
   height: 500px;
@@ -146,14 +158,6 @@ h1{
   width: 25%;
 }
 
-.product__details p{
-  width: 75%;
-  justify-content: left;
-}
-.desc{
-  height: 200px;
-  overflow: hidden;
-}
 
 .sizing{
   display: flex;
@@ -180,6 +184,11 @@ h1{
   border: none;
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+.size__btn__selected{
+  background-color: black !important;
+  color: white;
 }
 
 /* Cart page */

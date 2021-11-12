@@ -24,7 +24,7 @@ class CartPage extends React.Component {
     <div className="cart__page">
         <h2>CART</h2>
         <div>
-            {this.state.cart.map(item => <CartItem item={item} currency={this.props.currency} qty={this.props.cart.length !== 0 ? this.props.cart.find(elem => elem.id === item.id).qty:null}/>)}
+            {this.state.cart.map(item => <CartItem item={item} currency={this.props.currency} qty={this.props.cart.length !== 0 ? this.props.cart.find(elem => elem.id === item.id).qty:null} size={this.props.cart.length !== 0 ? this.props.cart.find(elem => elem.id === item.id).size:null}/>)}
         </div>
     </div>
   );}

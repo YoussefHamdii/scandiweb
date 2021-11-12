@@ -41,13 +41,14 @@ class Category extends React.Component {
         client.query({
             query: testQuery
         }).then(res => {this.setState({products: res.data.categories[1]}); this.props.addProducts(this.state.products.products)}).catch(e => console.log(e));
+        
       }
       
 
   render(){
   return (
       <ApolloProvider client={client}>
-      
+      {console.log(this.state.products)}
     <div className="container">
         <h1>{this.state.products.name}</h1>
 
