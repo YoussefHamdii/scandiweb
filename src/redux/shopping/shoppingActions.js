@@ -26,3 +26,10 @@ export const addProducts = (products) =>{
         payload: products
     };
 };
+
+export const changeCurrency = (currency) =>{
+    return{
+        type: actionTypes.CHANGE_CURRENCY,
+        payload: currency
+    };
+};

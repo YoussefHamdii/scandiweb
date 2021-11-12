@@ -7,7 +7,7 @@ class ProductListingDetails extends React.Component {
     constructor(props) {
         super(props);
         this.state ={};
-      }
+    }
 
   render(){
   return (
@@ -24,7 +24,8 @@ class ProductListingDetails extends React.Component {
             </ul>
         </div>
         <h6>Price:</h6>
-        400 $
+        {console.log(this.props.item.prices)}
+        {this.props.item.prices?this.props.item.prices.find(elem => elem.currency === this.props.currency).amount:null}
         <button className="addtocart__button" onClick={() => this.props.addToCart(this.props.item.id)}>
             ADD TO CART
         </button>
@@ -33,10 +34,16 @@ class ProductListingDetails extends React.Component {
   );}
 }
 
+const mapStateToProps = state => {
+    return {
+        currency: state.shop.currency,
+    }
+}
+
 const mapDispatchToProps = dispatch => {
     return {
         addToCart: (id) => dispatch(addToCart(id))
     }
 };
 
-export default connect(null, mapDispatchToProps)(ProductListingDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductListingDetails);

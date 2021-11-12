@@ -2,7 +2,8 @@ import * as actionTypes from './shoppingTypes';
 
 const INITIAL_STATE = {
     products: [],
-    cart: []
+    cart: [],
+    currency: "USD"
 }
 
 const shopReducer = (state = INITIAL_STATE, {type, payload}) =>{
@@ -16,6 +17,8 @@ const shopReducer = (state = INITIAL_STATE, {type, payload}) =>{
             else return{...state, cart: state.cart.map((item) => item.id === payload.id? {...item, qty:payload.qty}:item) };
         case actionTypes.ADD_PRODUCTS:
             return {...state, products: payload}
+        case actionTypes.CHANGE_CURRENCY:
+            return{...state, currency: payload}
         default:
             return state;
     }

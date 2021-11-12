@@ -33,6 +33,7 @@ ul{
   padding-right: 10%;
 }
 
+
 .nav__list{
   display: flex;
   list-style-type: none;
@@ -51,6 +52,7 @@ ul{
   background-color: white !important;
   border: none !important;
   padding-top: 25px;
+  margin-left: 5px;
 }
 
 .drop__container{
@@ -69,14 +71,25 @@ h1{
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  padding-left: 5%;
+}
+
+.card__img__container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .card__img{
   width:  300px;
   height: 300px;
   object-fit: cover;
-  padding-bottom: 20px;
+  padding-top: 20px;
+  
+}
+
+.link p{
+  margin-left: 10%;
 }
 
 /* Card component */
@@ -87,6 +100,12 @@ h1{
   text-align: left;
   flex-basis: 30%;
   margin-top: 100px;
+}
+
+.card__content__container:hover {
+  box-shadow: -1px 0px 26px 5px rgba(0,0,0,0.12);
+-webkit-box-shadow: -1px 0px 26px 5px rgba(0,0,0,0.12);
+-moz-box-shadow: -1px 0px 26px 5px rgba(0,0,0,0.12);
 }
 .card__content__container p{
   font-weight:100;

@@ -17,7 +17,7 @@ class CartItem extends React.Component {
         <div className="grow">
             <h5>{this.props.item.name}</h5>
             <p>{this.props.item.brand}</p>
-            <h5>50$</h5>
+            <h5>{this.props.item.prices ?this.props.item.prices.find(item => item.currency === this.props.currency).amount* this.props.qty:null}</h5>
             <ul className="sizing">
                 <li>M</li>
                 <li>L</li>

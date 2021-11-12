@@ -1,18 +1,26 @@
 import React from 'react';
 import {Dropdown} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { changeCurrency } from '../redux/shopping/shoppingActions';
 
 class Navigation extends React.Component {
+    
+    constructor(props) {
+        super(props);
+        this.state ={selected: 0};
+      }
+
   render(){
   return (
     <div className="nav__container">
         <ul className="nav__list">
-            <li className=" list__item nav__item__selected">WOMEN</li>
-            <li className=" list__item">MEN</li>
-            <li className=" list__item">KIDS</li>
+            <button className="qty__buttons" onClick={()=> this.setState({selected: 0})}><li className={this.state.selected === 0 ?"list__item nav__item__selected":"list__item"}>WOMEN</li></button>
+            <button className="qty__buttons" onClick={()=> this.setState({selected: 1})}><li className={this.state.selected === 1 ?"list__item nav__item__selected":"list__item"}>MEN</li></button>
+            <button className="qty__buttons" onClick={()=> this.setState({selected: 2})}><li className={this.state.selected === 2 ?"list__item nav__item__selected":"list__item"}>KIDS</li></button>
         </ul>
 
-        <img src="/logo.svg" alt="Logo"/>
+        <img src="/logo.svg" alt="Logo" />
 
         <div className="drop__container">
             <Dropdown>
@@ -21,9 +29,11 @@ class Navigation extends React.Component {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">$ USD</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">€ EUR</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">¥ JPY</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.props.changeCurrency("USD")}>$ USD</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.props.changeCurrency("GBP")}>£ GBP</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.props.changeCurrency("AUD")}>$ AUD</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.props.changeCurrency("RUB")}>₽ RUB</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.props.changeCurrency("JPY")}>¥ JPY</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
             
@@ -43,4 +53,10 @@ class Navigation extends React.Component {
   );}
 }
 
-export default Navigation;
+const mapDispatchToProps = dispatch => {
+    return{
+        changeCurrency: (currency) => dispatch(changeCurrency(currency))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Navigation);
