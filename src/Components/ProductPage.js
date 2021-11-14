@@ -1,7 +1,13 @@
 import React from 'react';
 import ProductListingDetails from './ProductListingDetails';
 import ProductShow from './ProductShowCase';
+import {ApolloClient, gql, InMemoryCache} from '@apollo/client';
 import { connect } from 'react-redux';
+
+const client = new ApolloClient({
+  uri:'http://localhost:4000/',
+  cache: new InMemoryCache()
+});
 
 class ProductListing extends React.Component {
 
@@ -11,7 +17,37 @@ class ProductListing extends React.Component {
       }
 
       componentDidMount(){
-        this.setState({product: this.props.products.find(elem => elem.id === window.location.pathname.substr(9))})
+        const testQuery = gql`
+              query Query {
+                product (id: "${window.location.pathname.substr(9)}"){
+                  id
+                  name
+                  inStock
+                  gallery
+                  description
+                  category
+                  attributes{
+                    id
+                    name
+                    type
+                    items{
+                      displayValue
+                      value
+                      id
+                    }
+                  }
+                  prices{
+                    currency
+                    amount
+                  }
+                  brand
+                }
+              }
+              `;
+              client.query({
+                query: testQuery
+            }).then(res => {this.setState({product: res.data.product})})
+            .catch(e => console.log(e));
       }
 
   render(){

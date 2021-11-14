@@ -21,7 +21,7 @@ class CartOverlayItem extends React.Component {
         <div className="grow__overlay">
             <h6>{this.props.item.name}</h6>
             <p>{this.props.item.brand}</p>
-            <h6>{this.props.item.prices ?this.props.item.prices.find(item => item.currency === this.props.currency).amount* this.props.qty:null}</h6>
+            <h6>{this.props.item.prices ?this.props.item.prices.find(item => item.currency === this.props.currency.currency).amount* this.props.qty:null} {this.props.currency.symbol}</h6>
             <ul className="sizing__overlay">
                 <button className="qty__buttons" onClick={()=> this.setState({size: "S"})}><li className={this.state.size === "S"? "size__btn__selected": ""}>S</li></button>
                 <button className="qty__buttons" onClick={()=> this.setState({size: "M"})}><li className={this.state.size === "M"? "size__btn__selected": ""}>M</li></button>

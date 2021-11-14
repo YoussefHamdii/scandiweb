@@ -30,6 +30,36 @@ const testQuery = gql`
   }
 `;
 
+const testQueryTech = gql`
+  query Query {
+    category (input: {title: "tech"}){
+      products{
+        id
+        name
+        inStock
+        gallery
+        description
+        category
+        attributes{
+          id
+          name
+          type
+          items{
+            displayValue
+            value
+            id
+          }
+        }
+        prices{
+          currency
+          amount
+        }
+        brand
+      }
+    }
+  }
+`;
+
 class Category extends React.Component {
 
     constructor(props) {
@@ -39,8 +69,9 @@ class Category extends React.Component {
 
     componentWillMount() {
         client.query({
-            query: testQuery
-        }).then(res => {this.setState({products: res.data.categories[1]}); this.props.addProducts(this.state.products.products)}).catch(e => console.log(e));
+            query: testQueryTech
+        }).then(res => {this.props.addProducts(res.data.category.products)})
+        .catch(e => console.log(e));
         
       }
       
@@ -52,7 +83,7 @@ class Category extends React.Component {
         <h1>{this.state.products.name}</h1>
 
         <div className="card__container">
-            {this.state.products.products? this.state.products.products.map((elem, index) => <Card item ={elem} key={index} className="card" />): null}
+            {this.props.products? this.props.products.map((elem, index) => <Card item ={elem} key={index} className="card" />): null}
         </div>
     </div>
     </ApolloProvider>
@@ -65,4 +96,11 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(Category);
+const mapStateToProps = state => {
+  return{
+    products: state.shop.products,
+    category: state.shop.clothes
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Category);

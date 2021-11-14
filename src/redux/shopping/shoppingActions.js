@@ -28,9 +28,19 @@ export const addProducts = (products) =>{
     };
 };
 
-export const changeCurrency = (currency) =>{
+export const changeCurrency = (currency, symbol) =>{
     return{
         type: actionTypes.CHANGE_CURRENCY,
-        payload: currency
+        payload: {
+            currency: currency,
+            symbol: symbol
+        }
+    };
+};
+
+export const changeCategory = (category) => {
+    return{
+        type: actionTypes.CHANGE_CATEGORY,
+        payload: category
     };
 };

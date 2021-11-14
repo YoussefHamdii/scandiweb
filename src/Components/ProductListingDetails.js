@@ -24,9 +24,9 @@ class ProductListingDetails extends React.Component {
             </ul>
         </div>
         <h6>Price:</h6>
-        {this.props.item.prices?this.props.item.prices.find(elem => elem.currency === this.props.currency).amount:null}
+        {this.props.item.prices?this.props.item.prices.find(elem => elem.currency === this.props.currency.currency).amount:null} {this.props.currency.symbol}
         {this.props.item? this.props.item.inStock? null : <p className="outofstock__text">OUT OF STOCK </p> : null}
-        <button className="addtocart__button" onClick={() => this.props.addToCart(this.props.item.id, this.state.size)}>
+        <button className="addtocart__button" onClick={() => this.props.item.inStock? this.props.addToCart(this.props.item.id, this.state.size):{}}>
             ADD TO CART
         </button>
         <span dangerouslySetInnerHTML={{__html: this.props.item.description}}/>

@@ -121,9 +121,22 @@ h1{
 }
 .card__content__container p{
   font-weight:100;
+  margin-left: 10%;
 }
 .card__content__container .price__txt{
   font-weight:500;
+}
+
+.card__content__container:hover  .cart__circle{
+  visibility: visible;
+}
+
+.cart__circle{
+  visibility: hidden;
+  position:absolute;
+  margin-top: 10%;
+  margin-left: 5%;
+  width: 60px;
 }
 
 /* Product Listing Page */
@@ -253,11 +266,17 @@ h1{
 /* mini cart */
 
 .minicart{
-  position: absolute;
-  right: 50%;
-  background-color: white;
+  padding: 20px;
 }
 
+.modal{
+  left: 25% !important;
+  top: 6% !important;
+}
+
+.modal-backdrop{
+  top: 10% !important;
+}
 .cart__logo{
   padding-top: 10px;
 }

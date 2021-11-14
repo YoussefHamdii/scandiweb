@@ -3,7 +3,8 @@ import * as actionTypes from './shoppingTypes';
 const INITIAL_STATE = {
     products: [],
     cart: [],
-    currency: "USD"
+    currency: {currency: "USD", symbol: "$"},
+    category: "clothes"
 }
 
 const shopReducer = (state = INITIAL_STATE, {type, payload}) =>{
@@ -19,6 +20,8 @@ const shopReducer = (state = INITIAL_STATE, {type, payload}) =>{
             return {...state, products: payload}
         case actionTypes.CHANGE_CURRENCY:
             return{...state, currency: payload}
+        case actionTypes.CHANGE_CATEGORY:
+            return {...state, category: payload}
         default:
             return state;
     }

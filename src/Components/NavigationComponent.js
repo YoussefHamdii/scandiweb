@@ -1,15 +1,21 @@
 import React from 'react';
-import {Dropdown} from 'react-bootstrap';
+import {Dropdown, Modal} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
-import { changeCurrency } from '../redux/shopping/shoppingActions';
+import { changeCategory, changeCurrency } from '../redux/shopping/shoppingActions';
 import CartOverlay from './CartOverlay';
+
 
 class Navigation extends React.Component {
     
     constructor(props) {
         super(props);
+        this.handleToggleChange = this.handleToggleChange.bind(this);
         this.state ={selected: 0, toggleCart: false};
+      }
+
+      handleToggleChange(toggle){
+            this.setState({toggleCart: toggle});
       }
 
   render(){
@@ -30,24 +36,23 @@ class Navigation extends React.Component {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => this.props.changeCurrency("USD")}>$ USD</Dropdown.Item>
-                    <Dropdown.Item onClick={() => this.props.changeCurrency("GBP")}>£ GBP</Dropdown.Item>
-                    <Dropdown.Item onClick={() => this.props.changeCurrency("AUD")}>$ AUD</Dropdown.Item>
-                    <Dropdown.Item onClick={() => this.props.changeCurrency("RUB")}>₽ RUB</Dropdown.Item>
-                    <Dropdown.Item onClick={() => this.props.changeCurrency("JPY")}>¥ JPY</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.props.changeCurrency("USD", "$")}>$ USD</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.props.changeCurrency("GBP", "£")}>£ GBP</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.props.changeCurrency("AUD", "$")}>$ AUD</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.props.changeCurrency("RUB", "₽")}>₽ RUB</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.props.changeCurrency("JPY", "¥")}>¥ JPY</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
-            
-            <Dropdown>
 
-                <button className="qty__buttons" onClick={() => this.setState({toggleCart: !this.state.toggleCart})}>    
+            <button className="qty__buttons" onClick={() => this.setState({toggleCart: true})}>    
                     <img className="cart__logo" src="/Cart.svg" alt="Cart" />
                 </button>
-
+            
+            <Modal show={this.state.toggleCart} onHide={()=> this.setState({toggleCart: false})} animation={false} className="modal">
                 {this.state.toggleCart ? <div className="minicart">
-                    <CartOverlay />
+                    <CartOverlay toggleHandler={this.handleToggleChange}/>
                 </div>: null}
-            </Dropdown>
+            </Modal>
         </div>
     </div>
   );}
@@ -55,7 +60,8 @@ class Navigation extends React.Component {
 
 const mapDispatchToProps = dispatch => {
     return{
-        changeCurrency: (currency) => dispatch(changeCurrency(currency))
+        changeCurrency: (currency, symbol) => dispatch(changeCurrency(currency, symbol)),
+        changeCategory: (category) => dispatch(changeCategory(category))
     }
 }
 
