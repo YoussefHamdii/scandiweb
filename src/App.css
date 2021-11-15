@@ -29,6 +29,10 @@ ul{
   margin-top: 100%;
 }
 
+.bold__text{
+  font-weight: bold;
+}
+
 /* navigation bar styling */
 .nav__container{
   display: flex;

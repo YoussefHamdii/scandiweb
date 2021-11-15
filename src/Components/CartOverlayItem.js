@@ -21,20 +21,33 @@ class CartOverlayItem extends React.Component {
         <div className="grow__overlay">
             <h6>{this.props.item.name}</h6>
             <p>{this.props.item.brand}</p>
-            <h6>{this.props.item.prices ?this.props.item.prices.find(item => item.currency === this.props.currency.currency).amount* this.props.qty:null} {this.props.currency.symbol}</h6>
-            <ul className="sizing__overlay">
-                <button className="qty__buttons" onClick={()=> this.setState({size: "S"})}><li className={this.state.size === "S"? "size__btn__selected": ""}>S</li></button>
-                <button className="qty__buttons" onClick={()=> this.setState({size: "M"})}><li className={this.state.size === "M"? "size__btn__selected": ""}>M</li></button>
-                <button className="qty__buttons" onClick={()=> this.setState({size: "L"})}><li className={this.state.size === "L"? "size__btn__selected": ""}>L</li></button>
-                <button className="qty__buttons" onClick={()=> this.setState({size: "XL"})}><li className={this.state.size === "XL"? "size__btn__selected": ""}>XL</li></button>
-            </ul>
+            <h6>{this.props.item.prices ? 
+            this.props.item.prices.find(elem => 
+            elem.currency === this.props.currency.currency).amount:null} 
+            {this.props.currency.symbol}</h6>
+
+            {this.props.item?  this.props.product.attributes.map(elem =>
+            <div>
+                <p>{elem.name}</p>
+                <ul className="sizing__overlay">
+                    {elem.items.map(item => <button className="qty__buttons" onClick={()=> 
+                        this.setState({attributes: {...this.props.item.attributes, [elem.name]: item.displayValue}})}>
+                            <li className={this.props.item.attributes[elem.name] === item.displayValue? 
+                                "size__btn__selected": ""}>{item.displayValue}
+                            </li></button>)}
+                </ul>
+            </div>):null}
         </div>
 
         <div>
         <ul className="qty__overlay">
-                <button className="qty__buttons" onClick={()=> this.props.adjustQty(this.props.item.id, this.props.qty+1)}><li>+</li></button>
-                <li className="number">{this.props.qty}</li>
-                <button className="qty__buttons" onClick={()=> this.props.adjustQty(this.props.item.id, this.props.qty-1)}><li>-</li></button>
+                <button className="qty__buttons" onClick={()=> this.props.adjustQty(this.props.item, this.props.item.qty+1)}>
+                    <li>+</li>
+                </button>
+                <li className="number">{this.props.item? this.props.item.qty: null}</li>
+                <button className="qty__buttons" onClick={()=> this.props.adjustQty(this.props.item, this.props.item.qty-1)}>
+                    <li>-</li>
+                </button>
             </ul>
         </div>
 

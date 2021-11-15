@@ -21,7 +21,7 @@ class Card extends React.Component {
             </ Link>
             {this.props.item.inStock ? null : <div className={this.props.item.inStock?"":"text__overlay"}>OUT OF STOCK</div>}
             {this.props.item.inStock ? 
-            <img src="/Circle.png" alt="img" className="cart__circle" onClick={() => {this.props.addToCart(this.props.item.id, "")}}/> 
+            <img src="/Circle.png" alt="img" className="cart__circle" onClick={() => {this.props.addToCart(this.props.item, {})}}/> 
             :null}
             
           </div>

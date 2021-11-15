@@ -10,11 +10,11 @@ class CartPage extends React.Component {
       }
 
       componentDidMount(){
-        this.setState({ cart: this.props.cart.map(item => this.props.products.find(elem => elem.id === item.id))});
+        this.setState({ cart: this.props.cart});
       }
       componentWillReceiveProps = nextProps => {
           if (nextProps.cart !== this.props.cart){
-            this.setState({ cart: nextProps ? nextProps.cart.map(item => this.props.products.find(elem => elem.id === item.id)):[]});
+            this.setState({ cart: nextProps ? nextProps.cart:null});
           }
       }
 
@@ -24,7 +24,9 @@ class CartPage extends React.Component {
     <div className="cart__page">
         <h2>CART</h2>
         <div>
-            {this.state.cart.map(item => <CartItem item={item} currency={this.props.currency} qty={this.props.cart.length !== 0 ? this.props.cart.find(elem => elem.id === item.id).qty:null} size={this.props.cart.length !== 0 ? this.props.cart.find(elem => elem.id === item.id).size:null}/>)}
+        {this.state.cart.map(item => 
+            <CartItem item={item} currency={this.props.currency} product={this.props.products.find(elem => elem.id === item.id)}
+            />)}
         </div>
     </div>
   );}

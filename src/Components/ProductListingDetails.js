@@ -6,27 +6,37 @@ class ProductListingDetails extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state ={size: ""};
+        this.state ={attributeSet: {}};
     }
 
   render(){
   return (
     <div className="product__details">
+        {console.log(this.props.item)}
         <h2>{this.props.item.name}</h2>
         <p>{this.props.item.brand}</p>
-        <div>
-            <p>SIZE:</p>
+        {this.props.item.attributes ? this.props.item.attributes.map(elem => 
+            <div>
+            <p>{elem.name}:</p>
             <ul className="sizing">
-                <button className="qty__buttons" onClick={()=> this.setState({size: "S"})}><li className={this.state.size === "S"? "size__btn__selected": ""}>S</li></button>
-                <button className="qty__buttons" onClick={()=> this.setState({size: "M"})}><li className={this.state.size === "M"? "size__btn__selected": ""}>M</li></button>
-                <button className="qty__buttons" onClick={()=> this.setState({size: "L"})}><li className={this.state.size === "L"? "size__btn__selected": ""}>L</li></button>
-                <button className="qty__buttons" onClick={()=> this.setState({size: "XL"})}><li className={this.state.size === "XL"? "size__btn__selected": ""}>XL</li></button>
+                {elem.items.map(item => 
+                    <button className="qty__buttons" onClick={()=> 
+                        this.setState({attributeSet: {...this.state.attributeSet, [elem.name]: item.displayValue}})}>
+                            <li className={this.state.attributeSet[elem.name] === item.displayValue ? "size__btn__selected": ""}>
+                                {item.displayValue}
+                            </li>
+                    </button>
+                    )}
             </ul>
         </div>
+        ):null}
         <h6>Price:</h6>
-        {this.props.item.prices?this.props.item.prices.find(elem => elem.currency === this.props.currency.currency).amount:null} {this.props.currency.symbol}
+        {this.props.item.prices?this.props.item.prices.find(elem =>
+            elem.currency === this.props.currency.currency).amount:null} {this.props.currency.symbol}
+
         {this.props.item? this.props.item.inStock? null : <p className="outofstock__text">OUT OF STOCK </p> : null}
-        <button className="addtocart__button" onClick={() => this.props.item.inStock? this.props.addToCart(this.props.item.id, this.state.size):{}}>
+        <button className="addtocart__button" onClick={() => 
+            this.props.item.inStock? this.props.addToCart(this.props.item, this.state.attributeSet):{}}>
             ADD TO CART
         </button>
         <span dangerouslySetInnerHTML={{__html: this.props.item.description}}/>

@@ -15,18 +15,29 @@ const testQuery = gql`
   }
 `;
 
+const currenciesQuery = gql`
+  query Query {
+    currencies
+  }
+`;
+
 class Navigation extends React.Component {
     
     constructor(props) {
         super(props);
         this.handleToggleChange = this.handleToggleChange.bind(this);
-        this.state ={selected: 0, toggleCart: false, categories: []};
+        this.state ={selected: 0, toggleCart: false, categories: [], currencySymbols: ["$", "£", "$", "₽", "¥"], currencies:[]};
       }
 
       componentDidMount(){
         client.query({
             query: testQuery
         }).then(res => {this.setState({categories: res.data.categories})})
+        .catch(e => console.log(e));
+
+        client.query({
+            query: currenciesQuery
+        }).then(res => {this.setState({currencies: res.data.currencies})})
         .catch(e => console.log(e));
       }
 
@@ -49,15 +60,11 @@ class Navigation extends React.Component {
         <div className="drop__container">
             <Dropdown>
                 <Dropdown.Toggle className="dropdown" variant="info">
-                $
+                {this.props.currency.symbol}
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => this.props.changeCurrency("USD", "$")}>$ USD</Dropdown.Item>
-                    <Dropdown.Item onClick={() => this.props.changeCurrency("GBP", "£")}>£ GBP</Dropdown.Item>
-                    <Dropdown.Item onClick={() => this.props.changeCurrency("AUD", "$")}>$ AUD</Dropdown.Item>
-                    <Dropdown.Item onClick={() => this.props.changeCurrency("RUB", "₽")}>₽ RUB</Dropdown.Item>
-                    <Dropdown.Item onClick={() => this.props.changeCurrency("JPY", "¥")}>¥ JPY</Dropdown.Item>
+                    {this.state.currencies.map((element, index) => <Dropdown.Item onClick={() => this.props.changeCurrency(element, this.state.currencySymbols[index])}>{this.state.currencySymbols[index]} {element}</Dropdown.Item>)}
                 </Dropdown.Menu>
             </Dropdown>
 
@@ -82,4 +89,10 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(Navigation);
+const mapStateToProps = state => {
+    return{
+        currency: state.shop.currency
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

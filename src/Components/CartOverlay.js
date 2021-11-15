@@ -14,14 +14,14 @@ class CartOverlay extends React.Component {
       }
 
       componentDidMount(){
-        this.setState({ cart: this.props.cart.map(item => this.props.products.find(elem => elem.id === item.id))});
+        this.setState({ cart: this.props.cart});
         document.addEventListener('mousedown', this.handleClickOutside);
       }
       componentWillReceiveProps = nextProps => {
-          if (nextProps.cart !== this.props.cart){
-            this.setState({ cart: nextProps ? nextProps.cart.map(item => this.props.products.find(elem => elem.id === item.id)):[]});
-          }
-      }
+        if (nextProps.cart !== this.props.cart){
+          this.setState({ cart: nextProps ? nextProps.cart:null});
+        }
+    }
       componentWillUnmount() {
         document.removeEventListener('mousedown', this.handleClickOutside);
     }
@@ -31,20 +31,29 @@ class CartOverlay extends React.Component {
           this.props.toggleHandler(false);
       }
   }
+  countItems(){
+    let x = 0;
+    this.props.cart.map(item => (x= x+item.qty))
+    return x;
+  }
+
+  calculateTotal(){
+    let y = 0;
+    this.props.cart.map(item => (y = y+(item.qty * item.prices.find(elem => elem.currency === this.props.currency.currency).amount)))
+    return y.toFixed(2);
+  }
 
 
   render(){
   return (
     <div className="cart__page__overlay" ref={this.wrapperRef}>
-        <h6>CART</h6>
+        <p><span className="bold__text">My Bag: </span>{this.countItems()} items</p>
         <div>
-            {this.state.cart.map(item => 
-            <CartOverlayItem item={item} currency={this.props.currency} qty={this.props.cart.length !== 0 ?
-             this.props.cart.find(elem => elem.id === item.id).qty:null} 
-             size={this.props.cart.length !== 0 ? this.props.cart.find(elem =>
-            elem.id === item.id).size:null}/>)}
-            
+        {this.state.cart.map(item => 
+            <CartOverlayItem item={item} currency={this.props.currency} product={this.props.products.find(elem => elem.id === item.id)}
+            />)}
         </div>
+        <p>Total: {this.calculateTotal()}{this.props.currency.symbol}</p>
         <div className="minicart__buttons">
             <button className="cart__button" onClick={()=> this.props.toggleHandler(false)}>
               <Link className="link" to="/cart">VIEW BAG

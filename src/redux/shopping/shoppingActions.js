@@ -1,21 +1,21 @@
 import * as actionTypes from "./shoppingTypes";
 
 
-export const addToCart = (itemID, itemSize) =>{
+export const addToCart = (item, attributes) =>{
     return {
         type: actionTypes.ADD_TO_CART,
         payload: {
-            id: itemID,
-            size: itemSize
+            ...item,
+            attributes: attributes
         }
     };
 };
 
-export const adjustQty = (itemID, value) => {
+export const adjustQty = (item, value) => {
     return {
         type: actionTypes.ADJUST_QTY,
         payload: {
-            id: itemID,
+            ...item,
             qty: value
         }
     };
