@@ -3,15 +3,31 @@ import {Dropdown, Modal} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { changeCategory, changeCurrency } from '../redux/shopping/shoppingActions';
+import client from "../Apiurl";
+import {gql} from '@apollo/client';
 import CartOverlay from './CartOverlay';
 
+const testQuery = gql`
+  query Query {
+    categories{
+        name
+      }
+  }
+`;
 
 class Navigation extends React.Component {
     
     constructor(props) {
         super(props);
         this.handleToggleChange = this.handleToggleChange.bind(this);
-        this.state ={selected: 0, toggleCart: false};
+        this.state ={selected: 0, toggleCart: false, categories: []};
+      }
+
+      componentDidMount(){
+        client.query({
+            query: testQuery
+        }).then(res => {this.setState({categories: res.data.categories})})
+        .catch(e => console.log(e));
       }
 
       handleToggleChange(toggle){
@@ -22,9 +38,10 @@ class Navigation extends React.Component {
   return (
     <div className="nav__container">
         <ul className="nav__list">
-            <button className="qty__buttons" onClick={()=> this.setState({selected: 0})}><li className={this.state.selected === 0 ?"list__item nav__item__selected":"list__item"}>WOMEN</li></button>
-            <button className="qty__buttons" onClick={()=> this.setState({selected: 1})}><li className={this.state.selected === 1 ?"list__item nav__item__selected":"list__item"}>MEN</li></button>
-            <button className="qty__buttons" onClick={()=> this.setState({selected: 2})}><li className={this.state.selected === 2 ?"list__item nav__item__selected":"list__item"}>KIDS</li></button>
+            {this.state.categories ? this.state.categories.map((elem, index) => 
+            <button key={index} className="qty__buttons" onClick={()=> {this.props.onCatChange(elem.name); this.setState({selected: index})}}>
+                <li className={this.state.selected === index ?"list__item nav__item__selected":"list__item"}>{elem.name}</li>
+            </button>):null}
         </ul>
 
         <Link to="/"><img className="logo" src="/logo.svg" alt="Logo" /></Link>

@@ -12,13 +12,24 @@ import {
 } from "react-router-dom";
 
 class App extends React.Component {
+
+  constructor(props){
+    super(props);
+    this.state={selectedCat: "clothes"};
+    this.changeSelectedCat = this.changeSelectedCat.bind(this);
+  }
+
+  changeSelectedCat(cat){
+    this.setState({selectedCat: cat});
+  }
+
   render(){
   return (
     <Router>
       <div>
-        <Navigation />
+        <Navigation onCatChange={this.changeSelectedCat} />
         <Routes>
-          <Route exact path="/" element={<Category />} />
+          <Route exact path="/" element={<Category cat={this.state.selectedCat} />} />
           <Route path="/product/:productId" element={<ProductListing />} />
           <Route path="/cart" element={<CartPage />} />
         </Routes>

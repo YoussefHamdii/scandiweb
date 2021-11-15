@@ -9,27 +9,6 @@ const client = new ApolloClient({
     cache: new InMemoryCache()
 });
 
-const testQuery = gql`
-  query Query {
-      categories{
-          name
-          products{
-            id
-            name
-            inStock
-            gallery
-            description
-            category
-            prices{
-              currency
-              amount
-            }
-            brand
-          }
-        }
-  }
-`;
-
 const testQueryTech = gql`
   query Query {
     category (input: {title: "tech"}){
@@ -67,21 +46,55 @@ class Category extends React.Component {
         this.state = {products:{}};
       }
 
-    componentWillMount() {
+    componentDidMount() {
         client.query({
             query: testQueryTech
         }).then(res => {this.props.addProducts(res.data.category.products)})
         .catch(e => console.log(e));
-        
+      }
+
+      componentDidUpdate(){
+        const testQueryTech = gql`
+            query Query {
+              category (input: {title: "${this.props.cat}"}){
+                products{
+                  id
+                  name
+                  inStock
+                  gallery
+                  description
+                  category
+                  attributes{
+                    id
+                    name
+                    type
+                    items{
+                      displayValue
+                      value
+                      id
+                    }
+                  }
+                  prices{
+                    currency
+                    amount
+                  }
+                  brand
+                }
+              }
+            }
+          `;
+
+          client.query({
+            query: testQueryTech
+          }).then(res => {this.props.addProducts(res.data.category.products)})
+          .catch(e => console.log(e));
       }
       
-
   render(){
   return (
       <ApolloProvider client={client}>
     <div className="container">
-        <h1>{this.state.products.name}</h1>
-
+        <h1>{this.props.cat}</h1>
         <div className="card__container">
             {this.props.products? this.props.products.map((elem, index) => <Card item ={elem} key={index} className="card" />): null}
         </div>
