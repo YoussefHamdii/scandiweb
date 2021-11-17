@@ -1,13 +1,10 @@
 import React from 'react';
 import ProductListingDetails from './ProductListingDetails';
 import ProductShow from './ProductShowCase';
-import {ApolloClient, gql, InMemoryCache} from '@apollo/client';
+import {gql} from '@apollo/client';
+import client from "../Apiurl";
 import { connect } from 'react-redux';
 
-const client = new ApolloClient({
-  uri:'http://localhost:4000/',
-  cache: new InMemoryCache()
-});
 
 class ProductListing extends React.Component {
 

@@ -1,13 +1,11 @@
 import React from 'react';
-import {ApolloClient, ApolloProvider, gql, InMemoryCache} from '@apollo/client';
+import {ApolloProvider, gql} from '@apollo/client';
+import client from "../Apiurl";
 import Card from './CardComponent';
 import { connect } from 'react-redux';
 import { addProducts } from '../redux/shopping/shoppingActions';
 
-const client = new ApolloClient({
-    uri:'http://localhost:4000/',
-    cache: new InMemoryCache()
-});
+
 
 const testQueryTech = gql`
   query Query {
