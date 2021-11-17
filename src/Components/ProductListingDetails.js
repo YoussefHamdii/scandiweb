@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactHtmlParser from "react-html-parser";
 import { connect } from 'react-redux';
 import { addToCart } from '../redux/shopping/shoppingActions';
 
@@ -12,15 +13,14 @@ class ProductListingDetails extends React.Component {
   render(){
   return (
     <div className="product__details">
-        {console.log(this.props.item)}
         <h2>{this.props.item.name}</h2>
         <p>{this.props.item.brand}</p>
-        {this.props.item.attributes ? this.props.item.attributes.map(elem => 
-            <div>
+        {this.props.item.attributes ? this.props.item.attributes.map((elem, index) => 
+            <div key={index}>
             <p>{elem.name}:</p>
             <ul className="sizing">
-                {elem.items.map(item => 
-                    <button className="qty__buttons" onClick={()=> 
+                {elem.items.map((item, index) => 
+                    <button key={index} className="qty__buttons" onClick={()=> 
                         this.setState({attributeSet: {...this.state.attributeSet, [elem.name]: item.displayValue}})}>
                             <li className={this.state.attributeSet[elem.name] === item.displayValue ? "size__btn__selected": ""}>
                                 {item.displayValue}
@@ -30,16 +30,20 @@ class ProductListingDetails extends React.Component {
             </ul>
         </div>
         ):null}
+
+        <p></p>
         <h6>Price:</h6>
         {this.props.item.prices?this.props.item.prices.find(elem =>
             elem.currency === this.props.currency.currency).amount:null} {this.props.currency.symbol}
 
         {this.props.item? this.props.item.inStock? null : <p className="outofstock__text">OUT OF STOCK </p> : null}
+
         <button className="addtocart__button" onClick={() => 
-            this.props.item.inStock? this.props.addToCart(this.props.item, this.state.attributeSet):{}}>
+            this.props.item.inStock && this.props.item.attributes.length === Object.keys(this.state.attributeSet).length?
+            this.props.addToCart(this.props.item, this.state.attributeSet):{}}>
             ADD TO CART
         </button>
-        <span dangerouslySetInnerHTML={{__html: this.props.item.description}}/>
+        <div>{ReactHtmlParser(this.props.item.description)}</div>
     </div>
   );}
 }

@@ -7,14 +7,18 @@ class CartItem extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state ={attributes: this.props.item.attributes, qty: this.props.item.qty};
+        this.state ={attributes: [], qty: 0, imagesLength: this.props.item.gallery.length, currentImage:0};
       }
       
+      componentWillReceiveProps(prevProps){
+        if (prevProps.item !== this.props.item)
+        this.setState({attributes: this.props.item.attributes, qty: this.props.item.qty, imagesLength: this.props.item.gallery.length});
+      }
 
   render(){
   return (
     <div className="cart__item__container">
-        {console.log(this.props.product)}
+        
         <div className="grow">
             <h5>{this.props.item.name}</h5>
             <p>{this.props.item.brand}</p>
@@ -22,11 +26,11 @@ class CartItem extends React.Component {
             this.props.item.prices.find(elem => elem.currency === this.props.currency.currency).amount:null} 
             {this.props.currency.symbol}</h5>
 
-            {this.props.item?  this.props.product.attributes.map(elem =>
-            <div>
+            {this.props.item?  this.props.product.attributes.map((elem, index) =>
+            <div key={index}>
                 <p>{elem.name}</p>
                 <ul className="sizing">
-                    {elem.items.map(item => <button className="qty__buttons" onClick={()=> 
+                    {elem.items.map((item, index) => <button key={index} className="qty__buttons" onClick={()=> 
                         this.setState({attributes: {...this.props.item.attributes, [elem.name]: item.displayValue}})}>
                             <li className={this.props.item.attributes[elem.name] === item.displayValue? "size__btn__selected": ""}>
                                 {item.displayValue}
@@ -48,8 +52,14 @@ class CartItem extends React.Component {
             </ul>
         </div>
 
-        <div>
-            <img src={this.props.item.gallery[0]} alt="img"/>
+        <div className="btncont">
+            <button className="btnleft" onClick={()=> 
+                this.state.currentImage > 0 ? 
+                this.setState({currentImage: this.state.currentImage-1}):null}>{"<"}</button>
+            <img src={this.props.item.gallery[this.state.currentImage]} alt="img"/>
+            <button className="btnright" onClick={()=> 
+                this.state.currentImage < this.state.imagesLength-1 ?
+                this.setState({currentImage: this.state.currentImage+1}):null}>{">"}</button>
         </div>
     </div>
   );}

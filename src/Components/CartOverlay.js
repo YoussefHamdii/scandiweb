@@ -49,8 +49,9 @@ class CartOverlay extends React.Component {
     <div className="cart__page__overlay" ref={this.wrapperRef}>
         <p><span className="bold__text">My Bag: </span>{this.countItems()} items</p>
         <div>
-        {this.state.cart.map(item => 
-            <CartOverlayItem item={item} currency={this.props.currency} product={this.props.products.find(elem => elem.id === item.id)}
+        {this.state.cart.map((item, index) => 
+            <CartOverlayItem key={index} item={item} currency={this.props.currency} 
+            product={this.props.products.find(elem => elem.id === item.id)}
             />)}
         </div>
         <p>Total: {this.calculateTotal()}{this.props.currency.symbol}</p>

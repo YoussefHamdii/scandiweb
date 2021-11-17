@@ -45,6 +45,12 @@ class Navigation extends React.Component {
             this.setState({toggleCart: toggle});
       }
 
+      countItems(){
+        let x = 0;
+        this.props.cart.map(item => (x= x+item.qty))
+        return x;
+      }
+
   render(){
   return (
     <div className="nav__container">
@@ -69,8 +75,11 @@ class Navigation extends React.Component {
             </Dropdown>
 
             <button className="qty__buttons" onClick={() => this.setState({toggleCart: true})}>    
-                    <img className="cart__logo" src="/Cart.svg" alt="Cart" />
-                </button>
+                <div className="notification">
+                    <span>{this.countItems()}</span>
+                </div>
+                <img className="cart__logo" src="/Cart.svg" alt="Cart" />
+            </button>
             
             <Modal show={this.state.toggleCart} onHide={()=> this.setState({toggleCart: false})} animation={false} className="modal">
                 {this.state.toggleCart ? <div className="minicart">
@@ -91,7 +100,8 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
     return{
-        currency: state.shop.currency
+        currency: state.shop.currency,
+        cart: state.shop.cart
     }
 }
 
