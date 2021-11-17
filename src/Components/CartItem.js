@@ -7,13 +7,13 @@ class CartItem extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state ={attributes: [], qty: 0, imagesLength: this.props.item.gallery.length, currentImage:0};
+        this.state ={attributes: {}, qty: 0, imagesLength: this.props.item.gallery.length, currentImage:0};
       }
       
       componentWillReceiveProps(prevProps){
-        if (prevProps.item !== this.props.item)
+        if (prevProps.item !== this.props.item){
         this.setState({attributes: this.props.item.attributes, qty: this.props.item.qty, imagesLength: this.props.item.gallery.length});
-      }
+    }}
 
   render(){
   return (
@@ -32,8 +32,9 @@ class CartItem extends React.Component {
                 <ul className="sizing">
                     {elem.items.map((item, index) => <button key={index} className="qty__buttons" onClick={()=> 
                         this.setState({attributes: {...this.props.item.attributes, [elem.name]: item.displayValue}})}>
+                            {console.log(this.props.product)}
                             <li className={this.props.item.attributes[elem.name] === item.displayValue? "size__btn__selected": ""}>
-                                {item.displayValue}
+                                {item.value}
                             </li></button>)}
                 </ul>
             </div>):null}

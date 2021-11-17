@@ -47,7 +47,7 @@ class Navigation extends React.Component {
 
       countItems(){
         let x = 0;
-        this.props.cart.map(item => (x= x+item.qty))
+        this.props.cart.map((item, index) => (x= x+item.qty))
         return x;
       }
 
@@ -70,7 +70,7 @@ class Navigation extends React.Component {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                    {this.state.currencies.map((element, index) => <Dropdown.Item onClick={() => this.props.changeCurrency(element, this.state.currencySymbols[index])}>{this.state.currencySymbols[index]} {element}</Dropdown.Item>)}
+                    {this.state.currencies.map((element, index) => <Dropdown.Item key={index} onClick={() => this.props.changeCurrency(element, this.state.currencySymbols[index])}>{this.state.currencySymbols[index]} {element}</Dropdown.Item>)}
                 </Dropdown.Menu>
             </Dropdown>
 

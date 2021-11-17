@@ -15,6 +15,7 @@ class ProductListing extends React.Component {
         super(props);
         this.state ={product: {}};
       }
+      
 
       componentDidMount(){
         const testQuery = gql`
@@ -48,7 +49,9 @@ class ProductListing extends React.Component {
                 query: testQuery
             }).then(res => {this.setState({product: res.data.product})})
             .catch(e => console.log(e));
+            
       }
+
 
   render(){
   return (

@@ -4,10 +4,6 @@
   box-sizing: 0;
 }
 
-ul{
-  list-style-type: none;
-}
-
 .center{
   margin: 0;
   position: absolute;
@@ -232,13 +228,13 @@ h1{
   justify-content: flex-start;
   padding-left: 0;
   margin-left: 0;
+  list-style: none;
 }
 
 .sizing li{
   margin-right: 20px;
   border: 1px solid black;
   padding: 10px;
-  width: 50px;
   text-align: center;
 }
 
@@ -289,6 +285,10 @@ h1{
   margin-bottom: 50px;
 }
 
+.qty{
+  list-style: none;
+}
+
 .qty li{
   border: 1px solid black;
   padding: 5px;
@@ -335,14 +335,17 @@ h1{
 
 .sizing__overlay{
   display: flex;
+  list-style: none;
 }
 
 .sizing__overlay li{
   margin-right: 20px;
   border: 1px solid black;
   padding: 1px;
-  width: 25px;
   text-align: center;
+}
+.qty__overlay{
+  list-style: none;
 }
 
 .qty__overlay li{

@@ -19,8 +19,7 @@ class CartOverlayItem extends React.Component {
   return (
     <div className="cart__item__container__overlay">
         <div className="grow__overlay">
-            <h6>{this.props.item.name}</h6>
-            <p>{this.props.item.brand}</p>
+            <h6>{this.props.item.brand} {this.props.item.name}</h6>
             <h6>{this.props.item.prices ? 
             this.props.item.prices.find(elem => 
             elem.currency === this.props.currency.currency).amount:null} 

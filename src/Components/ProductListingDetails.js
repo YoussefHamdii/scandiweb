@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactHtmlParser from "react-html-parser";
+import parse from 'html-react-parser';
 import { connect } from 'react-redux';
 import { addToCart } from '../redux/shopping/shoppingActions';
 
@@ -9,6 +9,7 @@ class ProductListingDetails extends React.Component {
         super(props);
         this.state ={attributeSet: {}};
     }
+    
 
   render(){
   return (
@@ -43,7 +44,7 @@ class ProductListingDetails extends React.Component {
             this.props.addToCart(this.props.item, this.state.attributeSet):{}}>
             ADD TO CART
         </button>
-        <div>{ReactHtmlParser(this.props.item.description)}</div>
+        <div>{this.props.item.description? parse(this.props.item.description):null}</div>
     </div>
   );}
 }
