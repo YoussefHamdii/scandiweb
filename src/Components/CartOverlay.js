@@ -50,9 +50,7 @@ class CartOverlay extends React.Component {
         <p><span className="bold__text">My Bag: </span>{this.countItems()} items</p>
         <div>
         {this.state.cart.map((item, index) => 
-            <CartOverlayItem key={index} item={item} currency={this.props.currency} 
-            product={this.props.products.find(elem => elem.id === item.id)}
-            />)}
+            <CartOverlayItem key={index} item={item} currency={this.props.currency} />)}
         </div>
         <p>Total: {this.calculateTotal()}{this.props.currency.symbol}</p>
         <div className="minicart__buttons">

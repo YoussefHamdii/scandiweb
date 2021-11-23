@@ -6,7 +6,7 @@ export const addToCart = (item, attributes) =>{
         type: actionTypes.ADD_TO_CART,
         payload: {
             ...item,
-            attributes: attributes
+            attributeSet: attributes
         }
     };
 };

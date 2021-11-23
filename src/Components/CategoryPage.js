@@ -6,37 +6,6 @@ import { connect } from 'react-redux';
 import { addProducts } from '../redux/shopping/shoppingActions';
 
 
-
-const testQueryTech = gql`
-  query Query {
-    category (input: {title: "tech"}){
-      products{
-        id
-        name
-        inStock
-        gallery
-        description
-        category
-        attributes{
-          id
-          name
-          type
-          items{
-            displayValue
-            value
-            id
-          }
-        }
-        prices{
-          currency
-          amount
-        }
-        brand
-      }
-    }
-  }
-`;
-
 class Category extends React.Component {
 
     constructor(props) {
@@ -45,10 +14,40 @@ class Category extends React.Component {
       }
 
     componentDidMount() {
-        client.query({
+      const testQueryTech = gql`
+            query Query {
+              category (input: {title: "${this.props.cat}"}){
+                products{
+                  id
+                  name
+                  inStock
+                  gallery
+                  description
+                  category
+                  attributes{
+                    id
+                    name
+                    type
+                    items{
+                      displayValue
+                      value
+                      id
+                    }
+                  }
+                  prices{
+                    currency
+                    amount
+                  }
+                  brand
+                }
+              }
+            }
+          `;
+
+          client.query({
             query: testQueryTech
-        }).then(res => {this.props.addProducts(res.data.category.products)})
-        .catch(e => console.log(e));
+          }).then(res => {this.props.addProducts(res.data.category.products)})
+          .catch(e => console.log(e));
       }
 
       componentDidUpdate(){

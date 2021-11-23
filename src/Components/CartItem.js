@@ -12,7 +12,7 @@ class CartItem extends React.Component {
       
       componentWillReceiveProps(prevProps){
         if (prevProps.item !== this.props.item){
-        this.setState({attributes: this.props.item.attributes, qty: this.props.item.qty, imagesLength: this.props.item.gallery.length});
+        this.setState({attributes: this.props.item.attributeSet, qty: this.props.item.qty, imagesLength: this.props.item.gallery.length});
     }}
 
   render(){
@@ -26,14 +26,14 @@ class CartItem extends React.Component {
             this.props.item.prices.find(elem => elem.currency === this.props.currency.currency).amount:null} 
             {this.props.currency.symbol}</h5>
 
-            {this.props.item?  this.props.product.attributes.map((elem, index) =>
+            {this.props.item?  this.props.item.attributes.map((elem, index) =>
             <div key={index}>
                 <p>{elem.name}</p>
                 <ul className="sizing">
                     {elem.items.map((item, index) => <button key={index} className="qty__buttons" onClick={()=> 
-                        this.setState({attributes: {...this.props.item.attributes, [elem.name]: item.displayValue}})}>
+                        this.setState({attributes: {...this.props.item.attributeSet, [elem.name]: item.displayValue}})}>
                             {console.log(this.props.product)}
-                            <li className={this.props.item.attributes[elem.name] === item.displayValue? "size__btn__selected": ""}>
+                            <li className={this.props.item.attributeSet[elem.name] === item.displayValue? "size__btn__selected": ""}>
                                 {item.value}
                             </li></button>)}
                 </ul>

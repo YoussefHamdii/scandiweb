@@ -56,9 +56,9 @@ class Navigation extends React.Component {
     <div className="nav__container">
         <ul className="nav__list">
             {this.state.categories ? this.state.categories.map((elem, index) => 
-            <button key={index} className="qty__buttons" onClick={()=> {this.props.onCatChange(elem.name); this.setState({selected: index})}}>
+            <Link to="/"><button key={index} className="qty__buttons" onClick={()=> {this.props.onCatChange(elem.name); this.setState({selected: index})}}>
                 <li className={this.state.selected === index ?"list__item nav__item__selected":"list__item"}>{elem.name}</li>
-            </button>):null}
+            </button></Link>):null}
         </ul>
 
         <Link to="/"><img className="logo" src="/logo.svg" alt="Logo" /></Link>

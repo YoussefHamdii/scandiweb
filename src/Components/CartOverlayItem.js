@@ -25,13 +25,13 @@ class CartOverlayItem extends React.Component {
             elem.currency === this.props.currency.currency).amount:null} 
             {this.props.currency.symbol}</h6>
 
-            {this.props.item?  this.props.product.attributes.map((elem, index) =>
+            {this.props.item?  this.props.item.attributes.map((elem, index) =>
             <div key={index}>
                 <p>{elem.name}</p>
                 <ul className="sizing__overlay">
                     {elem.items.map((item, index) => <button key={index} className="qty__buttons" onClick={()=> 
-                        this.setState({attributes: {...this.props.item.attributes, [elem.name]: item.displayValue}})}>
-                            <li className={this.props.item.attributes[elem.name] === item.displayValue? 
+                        this.setState({attributes: {...this.props.item.attributeSet, [elem.name]: item.displayValue}})}>
+                            <li className={this.props.item.attributeSet[elem.name] === item.displayValue? 
                                 "size__btn__selected": ""}>{item.displayValue}
                             </li></button>)}
                 </ul>
