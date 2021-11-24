@@ -93,6 +93,7 @@
 
 .list__item{
   padding: 20px 10px 30px 10px;
+  text-transform: uppercase;
 }
 
 .nav__item__selected{
@@ -137,6 +138,7 @@ h1{
   height: 300px;
   object-fit: cover;
   padding-top: 20px;
+  margin-bottom: 20px;
 }
 
 .link p{
@@ -181,8 +183,8 @@ h1{
 .cart__circle{
   visibility: hidden;
   position:absolute;
-  margin-top: 10%;
-  margin-left: 5%;
+  margin-top: 9.5%;
+  margin-left: 7.5%;
   width: 60px;
 }
 

@@ -55,7 +55,8 @@ class ProductListing extends React.Component {
     
     <div className="product__page">
         <ProductShow item={this.state.product?this.state.product.gallery:null} />
-        <ProductListingDetails item={this.state.product?this.state.product:null} currency={this.props.currency? this.props.currency:0}/>
+        <ProductListingDetails item={this.state.product ? 
+          this.state.product : null} currency={this.props.currency? this.props.currency:0}/>
     </div>
   );}
 }

@@ -39,7 +39,9 @@ class CartOverlay extends React.Component {
 
   calculateTotal(){
     let y = 0;
-    this.props.cart.map(item => (y = y+(item.qty * item.prices.find(elem => elem.currency === this.props.currency.currency).amount)))
+    this.props.cart.map(item => 
+      (y = y+(item.qty * item.prices.find(elem => 
+        elem.currency === this.props.currency.currency).amount)))
     return y.toFixed(2);
   }
 
@@ -49,17 +51,17 @@ class CartOverlay extends React.Component {
     <div className="cart__page__overlay" ref={this.wrapperRef}>
         <p><span className="bold__text">My Bag: </span>{this.countItems()} items</p>
         <div>
-        {this.state.cart.map((item, index) => 
-            <CartOverlayItem key={index} item={item} currency={this.props.currency} />)}
+          {this.state.cart ? this.state.cart.map((item, index) => 
+            <CartOverlayItem key={index} item={item} currency={this.props.currency} />):null}
         </div>
         <p>Total: {this.calculateTotal()}{this.props.currency.symbol}</p>
         <div className="minicart__buttons">
-            <button className="cart__button" onClick={()=> this.props.toggleHandler(false)}>
-              <Link className="link" to="/cart">VIEW BAG
-              </Link>
-            </button>
+          <button className="cart__button" onClick={()=> this.props.toggleHandler(false)}>
+            <Link className="link" to="/cart">VIEW BAG
+            </Link>
+          </button>
 
-            <button className="checkout">CHECK OUT</button>
+          <button className="checkout">CHECK OUT</button>
         </div>
     </div>
   );}

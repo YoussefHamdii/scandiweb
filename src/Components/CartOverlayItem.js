@@ -21,19 +21,22 @@ class CartOverlayItem extends React.Component {
         <div className="grow__overlay">
             <h6>{this.props.item.brand} {this.props.item.name}</h6>
             <h6>{this.props.item.prices ? 
-            this.props.item.prices.find(elem => 
-            elem.currency === this.props.currency.currency).amount:null} 
-            {this.props.currency.symbol}</h6>
+                this.props.item.prices.find(elem => 
+                    elem.currency === this.props.currency.currency).amount:null} 
+                {this.props.currency.symbol}
+            </h6>
 
-            {this.props.item?  this.props.item.attributes.map((elem, index) =>
+            {this.props.item?  this.props.item.attributes.map((attribute, index) =>
             <div key={index}>
-                <p>{elem.name}</p>
+                <p>{attribute.name}</p>
                 <ul className="sizing__overlay">
-                    {elem.items.map((item, index) => <button key={index} className="qty__buttons" onClick={()=> 
-                        this.setState({attributes: {...this.props.item.attributeSet, [elem.name]: item.displayValue}})}>
-                            <li className={this.props.item.attributeSet[elem.name] === item.displayValue? 
+                    {attribute.items.map((item, index) => 
+                    <button key={index} className="qty__buttons" onClick={()=> 
+                        this.setState({attributes: {...this.props.item.attributeSet, [attribute.name]: item.displayValue}})}>
+                            <li className={this.props.item.attributeSet[attribute.name] === item.displayValue? 
                                 "size__btn__selected": ""}>{item.displayValue}
-                            </li></button>)}
+                            </li>
+                    </button>)}
                 </ul>
             </div>):null}
         </div>

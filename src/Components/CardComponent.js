@@ -10,6 +10,12 @@ class Card extends React.Component {
         this.state ={currency: ["$", "£", "$", "₽", "¥"]};
       }
 
+      addToCartDefault(item){
+        var atr = {};
+        this.props.item.attributes.map((attribute, index) => atr[attribute.name] = attribute.items[0].displayValue);
+        return atr;
+      }
+
   render(){
   return (
     
@@ -18,11 +24,12 @@ class Card extends React.Component {
           <div className="card__img__container">
           <Link className="link" to={`/product/${this.props.item.id}`} >
             <img src={this.props.item.gallery[0]} alt="img" className="card__img"/>
-            </ Link>
-            {this.props.item.inStock ? null : <div className={this.props.item.inStock?"":"text__overlay"}>OUT OF STOCK</div>}
-            {this.props.item.inStock ? 
-            <img src="/Circle.png" alt="img" className="cart__circle" onClick={() => {this.props.addToCart(this.props.item, {})}}/> 
-            :null}
+          </Link>
+          {this.props.item.inStock ? null : <div className={this.props.item.inStock?"":"text__overlay"}>OUT OF STOCK</div>}
+          {this.props.item.inStock ? 
+          <img src="/Circle.png" alt="img" className="cart__circle" onClick={() => 
+            {this.props.addToCart(this.props.item, this.addToCartDefault(this.props.item))}}/>
+          :null}
             
           </div>
           <p>{`${this.props.item.brand} ${this.props.item.name}`}</p>
@@ -30,8 +37,6 @@ class Card extends React.Component {
             {this.props.item.prices.find(elem => elem.currency === this.props.currency.currency).amount} {this.props.currency.symbol}
           </p>
         </div>
-        
-        
     </button>
   );}
 }

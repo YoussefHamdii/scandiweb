@@ -55,10 +55,13 @@ class Navigation extends React.Component {
   return (
     <div className="nav__container">
         <ul className="nav__list">
-            {this.state.categories ? this.state.categories.map((elem, index) => 
-            <Link to="/"><button key={index} className="qty__buttons" onClick={()=> {this.props.onCatChange(elem.name); this.setState({selected: index})}}>
-                <li className={this.state.selected === index ?"list__item nav__item__selected":"list__item"}>{elem.name}</li>
-            </button></Link>):null}
+            {this.state.categories ? this.state.categories.map((category, index) => 
+            <Link to="/">
+                <button key={index} className="qty__buttons" onClick={()=> 
+                    {this.props.onCatChange(category.name); this.setState({selected: index})}}>
+                <li className={this.state.selected === index ?"list__item nav__item__selected":"list__item"}>{category.name}</li>
+                </button>
+            </Link>):null}
         </ul>
 
         <Link to="/"><img className="logo" src="/logo.svg" alt="Logo" /></Link>
@@ -70,7 +73,11 @@ class Navigation extends React.Component {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                    {this.state.currencies.map((element, index) => <Dropdown.Item key={index} onClick={() => this.props.changeCurrency(element, this.state.currencySymbols[index])}>{this.state.currencySymbols[index]} {element}</Dropdown.Item>)}
+                    {this.state.currencies.map((currency, index) => 
+                        <Dropdown.Item key={index} onClick={() => 
+                            this.props.changeCurrency(currency, this.state.currencySymbols[index])}>
+                                {this.state.currencySymbols[index]} {currency}
+                        </Dropdown.Item>)}
                 </Dropdown.Menu>
             </Dropdown>
 
@@ -82,7 +89,8 @@ class Navigation extends React.Component {
             </button>
             
             <Modal show={this.state.toggleCart} onHide={()=> this.setState({toggleCart: false})} animation={false} className="modal">
-                {this.state.toggleCart ? <div className="minicart">
+                {this.state.toggleCart ? 
+                <div className="minicart">
                     <CartOverlay toggleHandler={this.handleToggleChange}/>
                 </div>: null}
             </Modal>

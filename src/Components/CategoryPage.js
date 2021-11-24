@@ -14,7 +14,7 @@ class Category extends React.Component {
       }
 
     componentDidMount() {
-      const testQueryTech = gql`
+      const defaultQuery = gql`
             query Query {
               category (input: {title: "${this.props.cat}"}){
                 products{
@@ -45,13 +45,13 @@ class Category extends React.Component {
           `;
 
           client.query({
-            query: testQueryTech
+            query: defaultQuery
           }).then(res => {this.props.addProducts(res.data.category.products)})
           .catch(e => console.log(e));
       }
 
       componentDidUpdate(){
-        const testQueryTech = gql`
+        const updateQuery = gql`
             query Query {
               category (input: {title: "${this.props.cat}"}){
                 products{
@@ -82,7 +82,7 @@ class Category extends React.Component {
           `;
 
           client.query({
-            query: testQueryTech
+            query: updateQuery
           }).then(res => {this.props.addProducts(res.data.category.products)})
           .catch(e => console.log(e));
       }
@@ -93,7 +93,8 @@ class Category extends React.Component {
     <div className="container">
         <h1>{this.props.cat}</h1>
         <div className="card__container">
-            {this.props.products? this.props.products.map((elem, index) => <Card item ={elem} key={index} className="card" />): null}
+            {this.props.products? this.props.products.map((elem, index) => 
+            <Card item ={elem} key={index} className="card" />): null}
         </div>
     </div>
     </ApolloProvider>
